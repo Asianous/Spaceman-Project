@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+}
+
+header{
+    border: 1px solid orange;
+}
+
+h1{
+    border: 1px solid green;
+}
+
+main > div{
+    border: 1px solid black;
+    display: flex;
+    align-items: flex-end;
+}
+
