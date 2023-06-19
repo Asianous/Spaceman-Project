@@ -17,6 +17,6 @@ initStart.addEventListener('click', initGame);
 
 
 // functions
-// initGame(){
+initGame(){
 
-// };
+};
