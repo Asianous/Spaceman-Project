@@ -10,12 +10,30 @@
     justify-content: center;
     
 }
+
+nav{
+display: flex;
+justify-content: center;
+visibility: hidden;
+}
+
+.optionRandom{
+    position: absolute;
+    top: 0;
+    margin-left: 20vh;
+    margin-top: 20vh;
+
+}
+.optionSpace{
+    position: absolute;
+    top: 0; 
+    margin-right: 20vh;
+    margin-top: 20vh;
+}
+
 img {
-    /* position: absolute; */
     height: 100%;
     width: 100%;
-    
-    
 }
 
 header{
@@ -24,12 +42,23 @@ header{
     width: 35vh;
     font-size: 50px;
 }
-h1{
-    border-radius: 50px;
-    border: 5px solid rgb(107, 139, 107);
-    height: 6vh;
-    width: 15vh;
+#playBtn{
+    /* position: absolute;
+    top: 0;  */
+    border-radius: 5px;
+    background-color: rgb(107, 139, 107);;
+    height: 5vh;
+    width: 10vh;
     margin-top: 10vh;
+}
+
+#optionCtr{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16vh;
 }
 
 body{
@@ -38,6 +67,8 @@ body{
     height: 90vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: bold;
     
 }
 
@@ -50,7 +81,7 @@ main{
 }
 
 sub-main{
-    /* border: px solid black; */
+    border: px solid black; 
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -60,10 +91,9 @@ sub-main{
 }
 
 
-
-#letter-ctr{
+.letter-ctr{
     border-radius: 5px;
-    border: 2px solid black;
+    border: 5px;
     text-align: center;
     height: 5vh;
     display: flex;
@@ -86,3 +116,21 @@ footer{
     justify-content: space-evenly;
 }
 
+.popupEnd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+button{
+    /* border-radius: 3px; */
+    border: 0;
+    height: 3vh;
+    width: 10vh;
+    margin-top: 1vh;
+    font-family: 'Chakra Petch', sans-serif;
+    background-color: rgb(195, 219, 240);
+    font-size: 20px;
+    font-weight: bold;
+} 
