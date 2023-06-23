@@ -11,10 +11,17 @@
     <title>Spaceman</title>
   </head>
   <body>
+    <div class="rules">
+      <p id="head">Rules</p>
+      <p>Guess the word by clicking on the letters below</p>
+      <p>Every incorrect guess will make Spaceman mad...</p>
+      <p>You have a number of tries before Spaceman takes off!</p>
+    </div>
     <main>
-      <img src="../assets/error0.png" alt="image">
+      <img src="../assets/error08.png" alt="image" class="movingPic">
       <header id="titleGame" class="top-ctr">Spaceman</header>
       <h1 id="playBtn" class="top-ctr">Play</h1> 
+      <div class="hiddenWord"></div>
     </main>
     
     <nav class="optionCtr">
@@ -22,7 +29,6 @@
       <button class="optionRandom">Random</button>
       <button class="optionSpace">Space</button>
     </nav>
-    <aside class="hiddenWord">d</aside>
   <sub-main>
     <footer id="userChoice" class="letter-ctr">
         <div class="letterA">A</div>
@@ -52,9 +58,10 @@
         <div class="letterY">Y</div>
         <div class="letterZ">Z</div>
       </footer>
+      </sub-main>
     </main>
     <div class="popup-ctr">
-      <div class="popupEnd">
+      <div class="popup">
         <button class="reset">Play Again</button>
       </div>
     </div>
