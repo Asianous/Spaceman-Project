@@ -13,7 +13,6 @@ Welcome to my project! This is a project browser-based game I am developing thro
 - Event listener to start the game( Random word generator at the start)
 - Internal check feature (checks if the word is valid English word) 
 - Click events to reveal word(when I click letter→ true or false if false move player)
-- If the player clicks a letter that is not in the word bank spaceman moves to ship(if the user clicks correct
-- The player stays in position but letter fills in the blank)
+- If the player clicks a letter that is not in the word bank spaceman moves to ship(if the user clicks correct the player stays in position but letter fills in the blank)
 - Message for win/loser
 - Play again(reset)
