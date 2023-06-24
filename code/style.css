@@ -23,6 +23,7 @@ align-items: center;
 margin-top: 70vh;
 font-size: 50px;
 }
+
 .hiddenWord > div{
     color: rgb(101, 101, 101);
     padding: 1rem;
@@ -136,7 +137,7 @@ sub-main{
     height: 5vh;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;  
+    flex-direction: column; 
 }
 
 footer>div{
@@ -146,9 +147,8 @@ footer>div{
 }
 
 footer{
-    /* border: 10px solid rgb(0, 0, 0); */
-    display: flex;
-    justify-content: space-evenly;
+    /* display: flex;
+    justify-content: space-evenly; */
 }
 
 .popup{

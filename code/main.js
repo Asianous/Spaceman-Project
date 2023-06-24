@@ -3,57 +3,57 @@
 const wordBank ={
     space:[
     "Asteroid",
-    "Big Bang",
-    "Black hole",
-    "Celestial body",
-    "Comet",
-    "Cosmic rays",
-    "Dark energy",
-    "Dark matter",
-    "Exoplanet",
     "Galaxy",
-    "Gravitational waves",
-    "Interstellar",
-    "Lunar eclipse",
-    "Mars",
-    "Meteor",
-    "Milky Way",
-    "Moon",
-    "NASA",
     "Nebula",
-    "Neptune",
-    "Orbit",
-    "Planet",
-    "Quasar",
-    "Rocket",
-    "Satellite",
-    "Solar flare",
-    "Solar system",
-    "Spacecraft",
-    "Space exploration",
-    "Space station",
-    "Star",
     "Supernova",
-    "Telescope",
-    "Universe",
-    "Uranus",
-    "Venus",
-    "Wormhole",
-    "X-ray astronomy",
-    "Yuri Gagarin",
-    "Zenith",
+    "Blackhole",
     "Astronaut",
-    "Astrobiology",
-    "Binary star",
+    "Rocket",
+    "Exoplanet",
+    "Comet",
+    "Satellite",
+    "Celestial",
     "Cosmonaut",
-    "Eclipse",
+    "Meteor",
+    "Lunar",
+    "Planet",
+    "Orbit",
+    "Star",
     "Gravity",
-    "Hubble Space Telescope",
-    "Ionosphere",
+    "Mars",
+    "Sun",
     "Jupiter",
-    "Kuiper belt",
-    "Lunar module"
-  ],
+    "Venus",
+    "Mercury",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+    "Saturn",
+    "Spacecraft",
+    "Telescope",
+    "Eclipse",
+    "Wormhole",
+    "Spacewalk",
+    "Crater",
+    "Alien",
+    "Zodiac",
+    "Comet",
+    "Cluster",
+    "Spectrum",
+    "Interstellar",
+    "Binary",
+    "Apollo",
+    "ISS",
+    "Exploration",
+    "Landing",
+    "Liftoff",
+    "Astrobiology",
+    "Robonaut",
+    "Quasar",
+    "Pulsar",
+    "Aurora",
+    "Hubble"
+    ],
 
 randomWords:[
     "apple",
@@ -111,10 +111,12 @@ randomWords:[
 ]
 };
 let guessesLeft = 8;
+let selectedLetter = '';
 
-//generate random word from object arrays
-let spaceWord = wordBank.space[Math.floor(Math.random() * wordBank.space.length)];
-let rdmWord = wordBank.randomWords[Math.floor(Math.random() * wordBank.randomWords.length)];
+
+// generate random word from object arrays
+let rdmWord;
+let spaceWord;
 
 
 
@@ -143,82 +145,84 @@ option.addEventListener('click', function(){
 playAgainBtn.addEventListener('click', resetGame);
 
 rdmSpaceWordBank.addEventListener('click', function(){
-    backgroundImg.src = "../assets/error0.png";
-    spaceWord;
-    // let spaceWord = wordBank.space[Math.floor(Math.random() * wordBank.space.length)];
+    spaceWord = wordBank.space[Math.floor(Math.random() * wordBank.space.length)];
+    renderGame(spaceWord);
     console.log(spaceWord);
-    hiddenWord.innerHTML = '';
-    for(let i = 0; i < spaceWord.length; i++){
-        let letter = document.createElement('div');
-        letter.innerText += '_';
-        letter.classList.add('letter');
-        hiddenWord.append(letter);
-    };
-    playerGuessLetters();
-    // checkWin();
+    
+    
 });
 rdmWordBank.addEventListener('click', function(){
-    backgroundImg.src = "../assets/error0.png";
-    rdmWord;
-    // let rdmWord = wordBank.randomWords[Math.floor(Math.random() * wordBank.randomWords.length)];
-    // console.log(rdmWord);
-    hiddenWord.innerHTML = '';
-    for(let i = 0; i < rdmWord.length; i++){
-        let letter = document.createElement('div');
-        letter.innerText = '_';
-        hiddenWord.append(letter);
-    };
-    playerGuessLetters();
-    // checkWin();
+    rdmWord = wordBank.randomWords[Math.floor(Math.random() * wordBank.randomWords.length)];
+    renderGame(rdmWord);
+    console.log(rdmWord);
 });
 
 // functions
 initializeGame();
 function initializeGame(){
+    guessesLeft = 8;
     btnPlay.style.visibility = 'visible';
     backgroundImg.src = "../assets/error08.png";
 };
 
+function renderGame(word){
+  backgroundImg.src = "../assets/error00.png";
+  hiddenWord.innerHTML = '';
+
+  for (let i = 0; i < word.length; i++){
+    let letter = document.createElement('div');
+    letter.innerText = '_';
+    hiddenWord.appendChild(letter);
+  }
+  playerGuessLetters();
+}
+
 function resetGame(){
+    hiddenWord.innerHTML = '';
     initializeGame();
-    
+    btnPlay.style.visibility = 'visible';
 }
 
 function playerGuessLetters() {
-    btnLetters.forEach(function(letter) {
-      letter.addEventListener('click', function () {
-        const selectedLetter = letter.innerText;
-        console.log('Selected letter:', selectedLetter);
-        checkWin();
-    });
-    });
-  }
+  btnLetters.forEach(function (letter) {
+    letter.addEventListener('click', function () {
+      const selectedLetter = letter.innerText;
+      console.log('Selected letter:', selectedLetter);
 
-// [...btnLetters].forEach(function (div){
-    //     div.addEventListener('click', function(){
-        //     console.log(div.innerHTML); 
-        //     });
-        // }); 
-        
-        function checkWin(){
-            const hiddenLetters = document.querySelectorAll('.letter');
-            const revealLetters = [...hiddenLetters].map(function(letter){
-                return letter.innerText;
-            })
-            // .join('');
-            
-            // if (!isCorrectGuess) {
-            //   guessesLeft--;
-            // }
-            
-            if(revealLetters === rdmWord || revealLetters === spaceWord){
-                console.log('I guess you want me to stay...');
-            } else if (guessesLeft === 0) {
-                console.log('Game over! Maybe Next Time');
-            } else {
-                guessesLeft--;
-        console.log(`Incorrect guess! ${guessesLeft} guesses left`);
-    }
+      // determine which word to check against based on the option selected
+      let wordToGuess;
+      if (spaceWord) {
+        wordToGuess = spaceWord;
+      } else {
+        wordToGuess = rdmWord;
+      }
+
+      // check if the selected letter is in the word to guess
+      let wordLetters = wordToGuess.split('');
+      let hiddenWordDivs = hiddenWord.querySelectorAll('div');
+      let letterFound = false;
+
+      for (let i = 0; i < wordLetters.length; i++) {
+        if (wordLetters[i].toLowerCase() === selectedLetter.toLowerCase()) {
+          if (hiddenWordDivs[i]) {
+            hiddenWordDivs[i].innerText = wordLetters[i];
+            letterFound = true;
+          }
+        }
+      }
+      if (!letterFound) {
+        guessesLeft--;
+        backgroundImg.src = `../assets/error0${8 - guessesLeft}.png`; 
+      }
+    });
+  });
 }
+
+
+
+function updateHiddenWord() {
+
+}
+
 
 
