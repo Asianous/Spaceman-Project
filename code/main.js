@@ -162,11 +162,11 @@ initializeGame();
 function initializeGame(){
     guessesLeft = 8;
     btnPlay.style.visibility = 'visible';
-    backgroundImg.src = "../assets/error08.png";
+    backgroundImg.src = "./assets/error08.png";
 };
 
 function renderGame(word){
-  backgroundImg.src = "../assets/error00.png";
+  backgroundImg.src = "./assets/error00.png";
   hiddenWord.innerHTML = '';
 
   for (let i = 0; i < word.length; i++){
@@ -212,7 +212,7 @@ function playerGuessLetters() {
       }
       if (!letterFound) {
         guessesLeft--;
-        backgroundImg.src = `../assets/error0${8 - guessesLeft}.png`; 
+        backgroundImg.src = `./assets/error0${8 - guessesLeft}.png`; 
       }
     });
   });
