@@ -117,6 +117,7 @@ let selectedLetter = '';
 let wordToGuess;
 let rdmWord;
 let spaceWord;
+let allLettersRevealed = false;
 
 
 
@@ -135,11 +136,11 @@ const hiddenWord = document.querySelector('.hiddenWord');
 
 // event listeners
 btnPlay.addEventListener('click', function(){
-    option.style.visibility = 'visible';
-    btnPlay.style.visibility = 'hidden';
+  option.style.visibility = 'visible';
+  btnPlay.style.visibility = 'hidden';
 });
 option.addEventListener('click', function(){
-    option.style.visibility = 'hidden';
+  option.style.visibility = 'hidden';
 });
 
 playAgainBtn.addEventListener('click', resetGame);
@@ -180,8 +181,9 @@ function renderGame(word){
 
 function resetGame(){
   initializeGame();
-    hiddenWord.innerHTML = '';
-    btnPlay.style.visibility = 'visible';
+  hiddenWord.innerHTML = '';
+  btnPlay.style.visibility = 'visible';
+  // btnLetters.removeEventListener('click');
 };
 
 // determine which word to check based on the option selected
@@ -193,47 +195,86 @@ function checkWord(){
   }
 };
 
+
+
 function playerGuessLetters(){
   checkWord();
-  btnLetters.forEach(function(letter){
-    letter.addEventListener('click', function(){
-      const selectedLetter = letter.innerText;
-      console.log('Selected letter:', selectedLetter);
-      console.log(letter);
-      // check if the selected letter is in the word to guess
-     let wordLetters = wordToGuess.split('');
-     let hiddenWordDivs = hiddenWord.querySelectorAll('div');
-     let letterFound = false;
-     
-     for(let i = 0; i < wordLetters.length; i++){
-       if(wordLetters[i].toLowerCase() === selectedLetter.toLowerCase()){
-         if(hiddenWordDivs[i]){
-           hiddenWordDivs[i].innerText = wordLetters[i];
-           letterFound = true;
-         }
-       }
-     }
-     if(!letterFound){ //if letter is selected is wrong, change the image
-       guessesLeft--;
-       backgroundImg.src = `./assets/error0${9 - guessesLeft}.png`;
-     }
-     let revealedLetters = hiddenWord.querySelectorAll('div');
-     let allLettersRevealed = true;
-     
-     for (let i = 0; i < revealedLetters.length; i++) {
-       if (revealedLetters[i].innerText === '_') {
-         allLettersRevealed = false;
-         break;
-       }
-     }
-     if(allLettersRevealed){
-       console.log('You win!');
-     }
-    //  console.log('You Lose!');
-    });
+  btnLetters.forEach((letter) => {
+    letter.addEventListener('click', function() {
+    handleLetterClick(letter)});
   });
 };
 
 
 
+function endGame(){
+  btnPlay.removeEventListener
+};
 
+// 
+
+
+function handleLetterClick(letter){
+  const selectedLetter = letter.innerText;
+  letter.style.backgroundColor = 'black';
+  console.log('Selected letter:', selectedLetter);
+  // console.log(letter); 
+  let letterFound = checkLetterInWord();
+  if(!letterFound){ //if letter selected is wrong, change the image
+    guessesLeft--;
+    backgroundImg.src = `./assets/error0${9 - guessesLeft}.png`;
+  }
+  allLettersRevealed = checkIfPlayerRevealAllLetters();
+  checkResult();
+};
+
+
+function checkLetterInWord(selectedLetter){
+  // check if the selected letter is in the word to guess
+  let wordLetters = wordToGuess.split('');
+  let hiddenWordDivs = hiddenWord.querySelectorAll('div');
+  let result = false;
+  for(let i = 0; i < wordLetters.length; i++){
+    if(wordLetters[i].toLowerCase() === selectedLetter.toLowerCase()){
+      //  if(hiddenWordDivs[i]){
+        hiddenWordDivs[i].innerText = wordLetters[i];
+        result = true;
+        break;
+        //  }
+      }
+    }
+    return result;
+  }
+  
+  
+  
+  // checking if player reveals all the letters or not
+function checkIfPlayerRevealAllLetters(){
+    let revealedLetters = hiddenWord.querySelectorAll('div');
+    let result = true;
+    for (let i = 0; i < revealedLetters.length; i++) {
+      if (revealedLetters[i].innerText === '_') {
+        result = false;
+      break;
+    }
+  }
+  return result;
+}
+
+function checkResult(){
+  if(allLettersRevealed === true){
+    btnPlay.style.visibility = 'visible';
+    btnPlay.style.height = 'auto';
+    btnPlay.style.width = '15vh';
+    btnPlay.innerText = 'You Win!!';
+    endGame();
+    
+  }else if(guessesLeft === 0){
+    btnPlay.style.visibility = 'visible';
+    btnPlay.style.height = 'auto';
+    btnPlay.style.width = '15vh';
+    btnPlay.innerText = 'You Lose!!';
+    endGame();
+  }
+
+};
