@@ -148,14 +148,14 @@ playAgainBtn.addEventListener('click', resetGame);
 rdmSpaceWordBank.addEventListener('click', function(){
   spaceWord = wordBank.spaceWords[Math.floor(Math.random() * wordBank.spaceWords.length)];
   renderGame(spaceWord);
-  console.log(spaceWord);
+  // console.log(spaceWord);
   
   
 });
 rdmWordBank.addEventListener('click', function(){
   rdmWord = wordBank.randomWords[Math.floor(Math.random() * wordBank.randomWords.length)];
   renderGame(rdmWord);
-  console.log(rdmWord);
+  // console.log(rdmWord);
 });
 
 // functions
@@ -175,15 +175,24 @@ function renderGame(word){
     let letter = document.createElement('div');
     letter.innerText = '_';
     hiddenWord.appendChild(letter);
-    console.log('test');
   }
 };
 
 function resetGame(){
+  endGame();
   initializeGame();
   hiddenWord.innerHTML = '';
   btnPlay.style.visibility = 'visible';
-  // btnLetters.removeEventListener('click');
+  option.style.visibility = 'hidden';
+  btnPlay.innerText = 'Play';
+  btnLetters.forEach((letter) => {
+    letter.style.backgroundColor = '#F0F4F8';
+  });
+};
+function endGame(){
+  btnLetters.forEach((letter) => {
+    letter.removeEventListener('click', handleLetterClick);
+  });
 };
 
 // determine which word to check based on the option selected
@@ -200,29 +209,19 @@ function checkWord(){
 function playerGuessLetters(){
   checkWord();
   btnLetters.forEach((letter) => {
-    letter.addEventListener('click', function() {
-    handleLetterClick(letter)});
+    letter.addEventListener('click', handleLetterClick);
   });
 };
 
-
-
-function endGame(){
-  btnPlay.removeEventListener
-};
-
-// 
-
-
-function handleLetterClick(letter){
-  const selectedLetter = letter.innerText;
-  letter.style.backgroundColor = 'black';
-  console.log('Selected letter:', selectedLetter);
-  // console.log(letter); 
-  let letterFound = checkLetterInWord();
+function handleLetterClick(){
+  const selectedLetter = this.innerText;
+  this.style.backgroundColor = 'black';
+  // console.log('Selected letter:', selectedLetter);
+  let letterFound = checkLetterInWord(selectedLetter);
   if(!letterFound){ //if letter selected is wrong, change the image
     guessesLeft--;
     backgroundImg.src = `./assets/error0${9 - guessesLeft}.png`;
+    console.log(`${guessesLeft}`);
   }
   allLettersRevealed = checkIfPlayerRevealAllLetters();
   checkResult();
@@ -236,17 +235,13 @@ function checkLetterInWord(selectedLetter){
   let result = false;
   for(let i = 0; i < wordLetters.length; i++){
     if(wordLetters[i].toLowerCase() === selectedLetter.toLowerCase()){
-      //  if(hiddenWordDivs[i]){
+
         hiddenWordDivs[i].innerText = wordLetters[i];
         result = true;
-        break;
-        //  }
       }
     }
     return result;
   }
-  
-  
   
   // checking if player reveals all the letters or not
 function checkIfPlayerRevealAllLetters(){
